@@ -89,7 +89,8 @@ const NoteEditor = ({
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          color: "#64748b"
+          color: "var(--text-muted)",
+          background: "var(--background)"
         }}
       >
         <div style={{ fontSize: 22, marginBottom: 8 }}>
@@ -104,7 +105,7 @@ const NoteEditor = ({
     <div
       style={{
         flex: 1,
-        background: "#f7fbff",
+        background: "var(--background-alt)",
         minHeight: 0,
         display: "flex",
         flexDirection: "column"
@@ -115,14 +116,15 @@ const NoteEditor = ({
           width: "100%",
           maxWidth: 760,
           margin: "32px auto",
-          background: "#fff",
-          borderRadius: 10,
-          boxShadow: "0 1px 9px #c7e4fc17",
+          background: "var(--surface)",
+          borderRadius: "var(--radius)",
+          boxShadow: "var(--shadow)",
           padding: "28px 34px 21px 34px",
           display: "flex",
           flexDirection: "column",
           gap: 20,
           minHeight: 320,
+          border: "1px solid var(--surface-border)"
         }}
         onSubmit={e => {
           e.preventDefault();
@@ -146,7 +148,8 @@ const NoteEditor = ({
             fontWeight: 700,
             fontSize: 22,
             marginBottom: 3,
-            background: "#f5f8fc"
+            background: "rgba(230,242,255,0.41)",
+            color: "var(--text)"
           }}
           data-testid="note-title"
         />
@@ -191,10 +194,10 @@ const NoteEditor = ({
               minHeight: 190,
               fontFamily: "inherit",
               padding: "12px",
-              background: "#f1f5f9",
+              background: "rgba(230,242,255,0.33)",
               borderRadius: 8,
-              border: "1px solid #e5e7eb",
-              color: "#13203f"
+              border: "1px solid var(--surface-border)",
+              color: "var(--text)"
             }}
             dangerouslySetInnerHTML={{ __html: basicMarkdown(edit.content) }}
           />
@@ -206,7 +209,8 @@ const NoteEditor = ({
               minHeight: 190,
               fontSize: 15,
               fontFamily: "inherit",
-              background: "#f8fafc",
+              background: "rgba(230,242,255,0.2)",
+              color: "var(--text)",
               resize: "vertical"
             }}
             placeholder="Start writing in Markdown or plain text..."

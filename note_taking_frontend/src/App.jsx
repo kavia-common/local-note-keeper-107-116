@@ -118,7 +118,12 @@ function App() {
       }}
     >
       <TopNav />
-      <main style={{ display: "flex", flex: 1, minHeight: 0, background: "#f7fbff" }}>
+      <main style={{
+        display: "flex",
+        flex: 1,
+        minHeight: 0,
+        background: "var(--background-alt)"
+      }}>
         <NotesSidebar
           notes={orderedNotes}
           selectedId={selectedId}
@@ -128,7 +133,12 @@ function App() {
           search={search}
           setSearch={setSearch}
         />
-        <div style={{ flex: 1, minWidth: 0, background: "#f8fafc" }}>
+        <div style={{
+          flex: 1,
+          minWidth: 0,
+          background: "var(--background)",
+          display: "flex",
+        }}>
           <NoteEditor
             note={selectedNote}
             onChange={handleEditNote}

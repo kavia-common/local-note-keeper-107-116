@@ -34,12 +34,13 @@ const NotesSidebar = ({
         width: 270,
         minWidth: 210,
         maxWidth: 320,
-        borderRight: "1px solid #e5e7eb",
-        background: "#fff",
+        borderRight: "1px solid var(--surface-border)",
+        background: "var(--surface)",
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        boxShadow: "0 0 24px 0 rgba(30,58,138,0.04)"
       }}
     >
       <div style={{ padding: "1em 1em 0.5em 1em", display: "flex", gap: 8 }}>
@@ -67,17 +68,18 @@ const NotesSidebar = ({
           <div
             key={note.id}
             style={{
-              background: selectedId === note.id ? "var(--gradient-1)" : "",
+              background: selectedId === note.id ? "var(--gradient-1)" : "transparent",
               borderLeft:
                 selectedId === note.id
                   ? "4px solid var(--primary)"
                   : "4px solid transparent",
               padding: "0.7em 0.8em 0.7em 1.0em",
               cursor: "pointer",
-              borderBottom: "1px solid #f1f5f9",
+              borderBottom: "1px solid var(--surface-border)",
               display: "flex",
               alignItems: "center",
-              position: "relative"
+              position: "relative",
+              borderRadius: selectedId === note.id ? "6px" : "0"
             }}
             tabIndex={0}
             aria-selected={selectedId === note.id}
@@ -89,10 +91,26 @@ const NotesSidebar = ({
             }}
           >
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 600, fontSize: 16, color: "#3b82f6" }}>
+              <div
+                style={{
+                  fontWeight: 600,
+                  fontSize: 16,
+                  color: selectedId === note.id ? "var(--primary)" : "var(--text)",
+                  textShadow: selectedId === note.id ? "0 1px 8px #e6f2ff77" : "none"
+                }}
+              >
                 {deriveTitle(note)}
               </div>
-              <div style={{ fontSize: 12, color: "#64748b", marginTop: 2, whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  marginTop: 2,
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden"
+                }}
+              >
                 {formatRelativeTime(note.updatedAt)}
               </div>
             </div>

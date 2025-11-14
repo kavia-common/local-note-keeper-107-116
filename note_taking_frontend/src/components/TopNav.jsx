@@ -16,11 +16,12 @@ const TopNav = () => (
       justifyContent: "flex-start",
       fontWeight: 700,
       letterSpacing: "0.04em",
-      boxShadow: "0 2px 8px rgba(59,130,246,0.10)"
+      boxShadow: "0 2px 8px rgba(59,130,246,0.10)",
+      // borderBottom: "1px solid var(--surface-border)"
     }}
     data-testid="topnav"
   >
-    <span style={{ fontSize: "1.25rem" }}>Local Note Keeper</span>
+    <span style={{ fontSize: "1.25rem", color: "inherit" }}>Local Note Keeper</span>
   </nav>
 );
 

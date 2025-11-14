@@ -4,12 +4,14 @@
   --success: #06b6d4;
   --error: #ef4444;
   --gradient-1: #3b82f61a;
-  --background: #f9fafb;
-  --surface: #ffffff;
-  --surface-border: #e5e7eb;
-  --text: #1e293b;
+  --background: #e6f2ff;          /* Light blue background */
+  --background-alt: #eaf4ff;
+  --surface: rgba(255, 255, 255, 0.72); /* Slightly translucent "card" */
+  --surface-border: rgba(30,58,138,0.15);
+  --text: #0f172a;                /* Very dark blue for max readability */
+  --text-muted: #334155;
   --text-light: #64748b;
-  --shadow: 0 1px 6px rgba(0,0,0,0.05);
+  --shadow: 0 1px 6px rgba(30,58,138,0.10); /* subtle deep blue shadow */
   --radius: 9px;
 }
 
@@ -22,6 +24,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+#root {
+  background: var(--background);
+  min-height: 100vh;
 }
 
 /* Consistent scrollbars and hidden arrows for sidebar */
@@ -50,17 +59,36 @@ code {
   padding: 0.6em 1.2em;
   cursor: pointer;
   box-shadow: var(--shadow);
-  transition: background 0.13s;
+  transition: background 0.13s, box-shadow 0.13s, color 0.13s;
 }
 .btn:active,
 .btn:focus {
   outline: none;
+  box-shadow: 0 0 0 2px var(--primary), var(--shadow);
 }
 .btn:disabled {
   background: var(--secondary);
+  color: #e5e7eb;
 }
 .btn.secondary {
   background: var(--secondary);
+  color: #f8fafc;
+}
+.btn:hover, .btn:focus-visible {
+  background: #2366d1;
+  box-shadow: 0 1px 10px rgba(59,130,246,0.11);
+}
+.btn.secondary:hover, .btn.secondary:focus-visible {
+  background: #425979;
+  color: #eaf4ff;
+}
+
+/* Elevate "surface" effect */
+.card, .surface {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--surface-border);
 }
 input, textarea {
   border: 1px solid var(--surface-border);
