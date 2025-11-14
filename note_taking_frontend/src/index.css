@@ -23,6 +23,9 @@
   --sidebar-text-selected: #0f172a;
   --sidebar-text-muted: #ede5dc; /* for timestamps, faded */
 
+  /* Pager and sidebar taupe (brown-gray) palette for full theme harmony */
+  /* Updated to match BottomPager.module.css. */
+
   /* TopNav reddish theme variables */
   --topnav-bg: #b91c1c;
   --topnav-accent: #7f1d1d;
