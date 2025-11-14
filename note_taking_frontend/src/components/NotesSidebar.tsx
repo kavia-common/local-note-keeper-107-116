@@ -39,14 +39,17 @@ const NotesSidebar: React.FC<NotesSidebarProps> = ({
     );
   }, [notes, search]);
 
+  // Handler for hover states to dynamically show hover color.
+  const [hoverId, setHoverId] = useState<string | null>(null);
+
   return (
     <aside
       style={{
         width: 270,
         minWidth: 210,
         maxWidth: 320,
-        borderRight: "1px solid #e5e7eb",
-        background: "#fff",
+        borderRight: "1px solid var(--sidebar-border)",
+        background: "var(--sidebar-bg)",
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -56,7 +59,13 @@ const NotesSidebar: React.FC<NotesSidebarProps> = ({
       <div style={{ padding: "1em 1em 0.5em 1em", display: "flex", gap: 8 }}>
         <input
           type="text"
-          style={{ flex: 1 }}
+          style={{
+            flex: 1,
+            background: "rgba(255,255,255,0.11)",
+            border: "1px solid var(--sidebar-border)",
+            borderRadius: "7px",
+            color: "var(--sidebar-text)",
+          }}
           placeholder="Search notes"
           value={search}
           aria-label="Search notes"
@@ -68,114 +77,153 @@ const NotesSidebar: React.FC<NotesSidebarProps> = ({
       </div>
       <div style={{ flex: 1, overflowY: "auto", marginTop: 4 }}>
         {filtered.length === 0 && (
-          <div style={{ padding: "2em 1em", color: "#64748b", fontSize: 16 }}>
+          <div style={{ padding: "2em 1em", color: "var(--sidebar-text-muted)", fontSize: 16 }}>
             {notes.length === 0
               ? "No notes yet."
               : "No notes match your search."}
           </div>
         )}
-        {filtered.map(note => (
-          <div
-            key={note.id}
-            style={{
-              background: selectedId === note.id ? "var(--gradient-1)" : "",
-              borderLeft:
-                selectedId === note.id
-                  ? "4px solid var(--primary)"
-                  : "4px solid transparent",
-              padding: "0.7em 0.8em 0.7em 1.0em",
-              cursor: "pointer",
-              borderBottom: "1px solid #f1f5f9",
-              display: "flex",
-              alignItems: "center",
-              position: "relative"
-            }}
-            tabIndex={0}
-            aria-selected={selectedId === note.id}
-            onClick={() => onSelect(note.id)}
-            onKeyDown={e => {
-              if (e.key === "Enter") {
-                onSelect(note.id);
-              }
-            }}
-          >
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 600, fontSize: 16, color: "#3b82f6" }}>
-                {deriveTitle(note)}
-              </div>
-              <div style={{ fontSize: 12, color: "#64748b", marginTop: 2, whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
-                {formatRelativeTime(note.updatedAt)}
-              </div>
-            </div>
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                setConfirmDelete(note.id);
-              }}
-              title="Delete note"
-              aria-label="Delete note"
-              className="btn secondary"
+        {filtered.map(note => {
+          const isSelected = selectedId === note.id;
+          const isHovered = hoverId === note.id;
+          let cardBg = "var(--sidebar-bg)";
+          let cardText = "var(--sidebar-text)";
+          let cardBorderLeft = "4px solid transparent";
+          if (isSelected) {
+            cardBg = "var(--sidebar-selected)";
+            cardText = "var(--sidebar-text-selected)";
+            cardBorderLeft = "4px solid var(--primary)";
+          } else if (isHovered) {
+            cardBg = "var(--sidebar-hover)";
+            cardText = "var(--sidebar-text)";
+            cardBorderLeft = "4px solid var(--sidebar-border)";
+          }
+          return (
+            <div
+              key={note.id}
               style={{
-                fontWeight: 700,
-                fontSize: 14,
-                marginLeft: 10,
-                padding: "0 0.7em",
-                color: "#fff",
-                background: "var(--error)"
+                background: cardBg,
+                color: cardText,
+                borderLeft: cardBorderLeft,
+                padding: "0.7em 0.8em 0.7em 1.0em",
+                cursor: "pointer",
+                borderBottom: "1px solid var(--sidebar-border)",
+                display: "flex",
+                alignItems: "center",
+                position: "relative",
+                borderRadius: isSelected ? "6px" : "0",
+                transition: "background 0.18s, color 0.16s"
               }}
-              tabIndex={-1}
+              tabIndex={0}
+              aria-selected={isSelected}
+              onClick={() => onSelect(note.id)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  onSelect(note.id);
+                }
+              }}
+              onMouseEnter={() => setHoverId(note.id)}
+              onMouseLeave={() => setHoverId(null)}
             >
-              🗑️
-            </button>
-            {confirmDelete === note.id && (
-              <span
-                style={{
-                  position: "absolute",
-                  left: 40,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "#fff",
-                  color: "#ef4444",
-                  border: "1px solid #ef4444",
-                  borderRadius: 8,
-                  padding: "0.3em 0.8em",
-                  fontWeight: 500,
-                  zIndex: 2,
-                  boxShadow: "0 3px 9px rgba(59,130,246,0.1)"
-                }}
-                tabIndex={0}
-              >
-                Delete?
-                <button
-                  className="btn"
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
                   style={{
-                    background: "var(--error)",
-                    marginLeft: 10
+                    fontWeight: 600,
+                    fontSize: 16,
+                    color: isSelected
+                      ? "var(--sidebar-text-selected)"
+                      : "var(--sidebar-text)",
+                    textShadow: isSelected
+                      ? "0 1px 8px #ecebe8a1"
+                      : "none"
                   }}
-                  onClick={e => {
-                    e.stopPropagation();
-                    onDelete(note.id);
-                    setConfirmDelete(null);
-                  }}
-                  tabIndex={-1}
                 >
-                  Yes
-                </button>
-                <button
-                  className="btn secondary"
-                  style={{ marginLeft: 2, background: "#f3f4f6", color: "#3b82f6" }}
-                  onClick={e => {
-                    e.stopPropagation();
-                    setConfirmDelete(null);
+                  {deriveTitle(note)}
+                </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: "var(--sidebar-text-muted)",
+                    marginTop: 2,
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden"
                   }}
-                  tabIndex={-1}
                 >
-                  No
-                </button>
-              </span>
-            )}
-          </div>
-        ))}
+                  {formatRelativeTime(note.updatedAt)}
+                </div>
+              </div>
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  setConfirmDelete(note.id);
+                }}
+                title="Delete note"
+                aria-label="Delete note"
+                className="btn secondary"
+                style={{
+                  fontWeight: 700,
+                  fontSize: 14,
+                  marginLeft: 10,
+                  padding: "0 0.7em",
+                  color: "#fff",
+                  background: "var(--error)"
+                }}
+                tabIndex={-1}
+              >
+                🗑️
+              </button>
+              {confirmDelete === note.id && (
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 40,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "var(--sidebar-bg)",
+                    color: "#ef4444",
+                    border: "1px solid #ef4444",
+                    borderRadius: 8,
+                    padding: "0.3em 0.8em",
+                    fontWeight: 500,
+                    zIndex: 2,
+                    boxShadow: "0 3px 9px rgba(59,130,246,0.1)",
+                    minWidth: 90
+                  }}
+                  tabIndex={0}
+                >
+                  Delete?
+                  <button
+                    className="btn"
+                    style={{
+                      background: "var(--error)",
+                      marginLeft: 10
+                    }}
+                    onClick={e => {
+                      e.stopPropagation();
+                      onDelete(note.id);
+                      setConfirmDelete(null);
+                    }}
+                    tabIndex={-1}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="btn secondary"
+                    style={{ marginLeft: 2, background: "#ece9e3", color: "#3b82f6" }}
+                    onClick={e => {
+                      e.stopPropagation();
+                      setConfirmDelete(null);
+                    }}
+                    tabIndex={-1}
+                  >
+                    No
+                  </button>
+                </span>
+              )}
+            </div>
+          );
+        })}
       </div>
     </aside>
   );

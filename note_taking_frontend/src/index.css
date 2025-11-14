@@ -14,6 +14,15 @@
   --shadow: 0 1px 6px rgba(30,58,138,0.10); /* subtle deep blue shadow */
   --radius: 9px;
 
+  /* Sidebar gray-brown (taupe) theme */
+  --sidebar-bg: #8a7f73;
+  --sidebar-hover: #7c7267;
+  --sidebar-border: #6d645b;
+  --sidebar-selected: #a0978d;
+  --sidebar-text: #111827;
+  --sidebar-text-selected: #0f172a;
+  --sidebar-text-muted: #ede5dc; /* for timestamps, faded */
+
   /* TopNav reddish theme variables */
   --topnav-bg: #b91c1c;
   --topnav-accent: #7f1d1d;
