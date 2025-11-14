@@ -9,7 +9,7 @@ const TopNav = () => (
   <nav
     style={{
       height: 56,
-      background: "var(--topnav-bg, #ef4444)",
+      background: "var(--topnav-bg, #b91c1c)",
       color: "#fff",
       display: "flex",
       alignItems: "center",
@@ -17,7 +17,7 @@ const TopNav = () => (
       justifyContent: "flex-start",
       fontWeight: 700,
       letterSpacing: "0.04em",
-      boxShadow: "0 2px 8px rgba(239,68,68,0.14)",
+      boxShadow: "0 2px 8px rgba(185,28,28,0.17)",
       position: "relative",
       zIndex: 11
     }}
@@ -26,7 +26,7 @@ const TopNav = () => (
     <span style={{
       fontSize: "1.25rem",
       color: "#fff",
-      textShadow: "0 2px 8px #b91c1c22",
+      textShadow: "0 2px 8px #991b1b33",
       letterSpacing: "0.02em"
     }}>
       Local Note Keeper
@@ -34,7 +34,7 @@ const TopNav = () => (
     {/* 
       If future nav items/links/buttons are added, ensure they also use appropriate contrasts:
       background: "transparent" (or var(--topnav-accent) for active), color: "#fff", 
-      and for :hover/:focus: background: "rgba(255,255,255,0.14)", color: "#fff"
+      and for :hover/:focus: background: "rgba(255,255,255,0.11)", color: "#fff"
     */}
   </nav>
 );
