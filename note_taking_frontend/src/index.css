@@ -13,6 +13,10 @@
   --text-light: #64748b;
   --shadow: 0 1px 6px rgba(30,58,138,0.10); /* subtle deep blue shadow */
   --radius: 9px;
+
+  /* TopNav reddish theme variables */
+  --topnav-bg: linear-gradient(90deg, #ef4444 0%, #dc2626 95%);
+  --topnav-accent: #b91c1c;
 }
 
 body {
