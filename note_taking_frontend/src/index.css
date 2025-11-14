@@ -15,7 +15,7 @@
   --radius: 9px;
 
   /* TopNav reddish theme variables */
-  --topnav-bg: linear-gradient(90deg, #b91c1c 0%, #991b1b 95%);
+  --topnav-bg: #b91c1c;
   --topnav-accent: #7f1d1d;
 }
 

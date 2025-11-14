@@ -22,6 +22,10 @@ const TopNav = () => (
       zIndex: 11
     }}
     data-testid="topnav"
+    // Accessible focus for nav itself and any nav items in future
+    tabIndex={0}
+    onFocus={e => { e.currentTarget.style.boxShadow = "0 0 0 2px #991b1b, 0 2px 8px rgba(185,28,28,0.17)"; }}
+    onBlur={e => { e.currentTarget.style.boxShadow = "0 2px 8px rgba(185,28,28,0.17)"; }}
   >
     <span style={{
       fontSize: "1.25rem",
@@ -32,9 +36,10 @@ const TopNav = () => (
       Local Note Keeper
     </span>
     {/* 
-      If future nav items/links/buttons are added, ensure they also use appropriate contrasts:
-      background: "transparent" (or var(--topnav-accent) for active), color: "#fff", 
-      and for :hover/:focus: background: "rgba(255,255,255,0.11)", color: "#fff"
+      All future nav items/links/buttons:
+      - background: "transparent" or "var(--topnav-accent)" for active
+      - color: "#fff"
+      - on hover/focus: background: "rgba(255,255,255,0.11)" (no gradient), color: "#fff"
     */}
   </nav>
 );
